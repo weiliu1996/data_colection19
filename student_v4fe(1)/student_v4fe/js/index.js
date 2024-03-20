@@ -9,6 +9,16 @@ const app = new Vue({
         currentpage:1,//当前页
         pagesize:10,//每页显示多少行
         dialogVisible:false,
+        dialog_title:"",//弹出框标题
+        is_view:false,//标识是否是查看
+        is_edit:false,//标识是否是修改
+        student_form:{
+            sno:'',
+            name:'',
+            birthday:'',
+            gender:'',
+            address:'',
+        }
     },
     mounted() {
         //自动加载数据
@@ -70,7 +80,53 @@ const app = new Vue({
         },
         // 添加学生时打开表单
         add_student(){
+            //修改标题
+            this.dialog_title = "添加学生明细";
+
             this.dialogVisible = true;
+        },
+        // 查看学生明细
+        view_student(row){
+            //修改标题
+            this.dialog_title = "查看学生明细";
+
+            this.is_view = true;
+            // 弹出表单
+            this.dialogVisible = true;
+            // 深拷贝方法1
+            // this.student_form.sno = row.sno;
+            // this.student_form.name = row.name;
+            // this.student_form.birthday = row.birthday;
+            // this.student_form.gender = row.gender;
+            // this.student_form.address = row.address;
+            // 深拷贝方法2
+            this.student_form = JSON.parse(JSON.stringify(row))
+
+        },
+        // 修改学生明细
+        update_student(row){
+            //修改标题
+            this.dialog_title = "修改学生明细";
+
+            this.is_edit = true;
+            // 弹出表单
+            this.dialogVisible = true;
+            this.student_form = JSON.parse(JSON.stringify(row))
+
+        },
+        // 关闭弹出框的表单
+        close_dialog(){
+            // 清空
+            this.student_form.sno = "";
+            this.student_form.name = "";
+            this.student_form.birthday = "";
+            this.student_form.gender = "";
+            this.student_form.address = "";
+            // 关闭
+            this.dialogVisible = false;
+            // 初始化is_view,is_edit
+            this.is_view = false;
+            this.is_edit = false;
         },
         //实现学生信息查询
         query_student_front:function(){

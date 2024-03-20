@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="shortcut icon" href="#" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>学生信息管理</title>
@@ -92,9 +93,11 @@
               <el-table-column prop="address" align="center" label="地址">
               </el-table-column>
               <el-table-column label="操作" align="center">
-                <el-button type="primary" icon="el-icon-edit" size="mini" circle></el-button>
-                <el-button type="success" icon="el-icon-check" size="mini" circle></el-button>
-                <el-button type="info" icon="el-icon-message" size="mini" circle></el-button>
+                <template slot-scope="scope">
+                  <el-button type="primary" icon="el-icon-edit" size="mini" circle @click="view_student(scope.row)"></el-button>
+                  <el-button type="success" icon="el-icon-check" size="mini" circle @click="update_student(scope.row)"></el-button>
+                  <el-button type="info" icon="el-icon-message" size="mini" circle></el-button>
+                </template>
               </el-table-column>
             </el-table>
             <!-- 分页 -->
@@ -110,41 +113,35 @@
               </el-col>
             </el-row>
             <!--弹出学生的明细表单-->
-            <el-dialog title="学生明细" :visible.sync="dialogVisible" width="50%">
-              <el-form :inline="true" lable-width="110px"  size="mini">
+            <el-dialog :title="dialog_title" :visible.sync="dialogVisible" width="50%" :close-on-click-modal="false" @close="close_dialog()">
+              <el-form v-model="student_form" :inline="true" style="margin-left: 20px;" lable-width="110px" label-position="right" size="mini">
                 <el-form-item label="学号：">
-                  <el-input></el-input>
+                  <el-input v-model="student_form.sno" :disabled="is_edit || is_view" suffix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="姓名：">
-                  <el-input></el-input>
+                  <el-input v-model="student_form.name" :disabled="is_view" suffix-icon="el-icon-edit"></el-input>
+                </el-form-item>
+                <el-form-item label="出生日期：">
+                  <el-date-picker v-model="student_form.birthday" :disabled="is_view"  type="date" placeholder="选择日期" style="width: 93%;">
+                  </el-date-picker>
                 </el-form-item>
                 <el-form-item label="性别：">
-                  <el-select placeholder="请选择性别">
+                  <el-select v-model="student_form.gender" placeholder="请选择性别" :disabled="is_view" >
                     <el-option label="男" value="男"></el-option>
                     <el-option label="女" value="女"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="出生日期：">
-                  <el-date-picker type="date" placeholder="选择日期">
-                  </el-date-picker>
-                </el-form-item>
-                <el-form-item label="手机号码：">
-                  <el-input></el-input>
-                </el-form-item>
-                <el-form-item label="邮箱地址：">
-                  <el-input></el-input>
-                </el-form-item>
-                <el-form-item label="家庭住址：">
-                  <el-input></el-input>
+                <el-form-item label="家庭住址：" style="width:100%;">
+                  <el-input v-model="student_form.address" suffix-icon="el-icon-edit" :disabled="is_view" ></el-input>
                 </el-form-item>
               </el-form>
               <span slot="footer" class="dialog-footer">
-                <el-button type = "primary" size = mini>确定</el-button>
-                <el-button type = "info" size = mini>取消</el-button>
+                <el-button type="primary" size=mini v-show="!is_view">确定</el-button>
+                <el-button type="info" size=mini @click="close_dialog()">取消</el-button>
               </span>
             </el-dialog>
           </el-main>
-          <el-footer style="height: 30px;">学生信息管理系统 版权所有：韶关复烤信息中心 | 2024年5月</el-footer>
+          <el-footer style="height: 30px;">韶关复烤技术中心数采系统 版权所有：韶关复烤信息中心 | 2024年5月</el-footer>
         </el-container>
       </el-container>
     </el-container>
