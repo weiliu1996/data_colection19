@@ -19,6 +19,7 @@ from django.urls import path
 from student import views
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("students/", views.get_students),#获取所有学生信息的接口
+    path("students/", views.get_students),# 获取所有学生信息的接口
     path("students/query/", views.query_student),
+    path("sno/check/",views.is_exist_sno),# 校验学号是否存在
 ]

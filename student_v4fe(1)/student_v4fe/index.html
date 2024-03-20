@@ -114,24 +114,24 @@
             </el-row>
             <!--弹出学生的明细表单-->
             <el-dialog :title="dialog_title" :visible.sync="dialogVisible" width="50%" :close-on-click-modal="false" @close="close_dialog()">
-              <el-form v-model="student_form" :inline="true" style="margin-left: 20px;" lable-width="110px" label-position="right" size="mini">
-                <el-form-item label="学号：">
+              <el-form :model="student_form" :rules="rules" :inline="true" style="margin-left: 20px;" lable-width="110px" label-position="right" size="mini">
+                <el-form-item label="学号：" prop="sno">
                   <el-input v-model="student_form.sno" :disabled="is_edit || is_view" suffix-icon="el-icon-edit"></el-input>
                 </el-form-item>
-                <el-form-item label="姓名：">
+                <el-form-item label="姓名：" prop="name">
                   <el-input v-model="student_form.name" :disabled="is_view" suffix-icon="el-icon-edit"></el-input>
                 </el-form-item>
-                <el-form-item label="出生日期：">
+                <el-form-item label="出生日期：" prop="birthday">
                   <el-date-picker v-model="student_form.birthday" :disabled="is_view"  type="date" placeholder="选择日期" style="width: 93%;">
                   </el-date-picker>
                 </el-form-item>
-                <el-form-item label="性别：">
+                <el-form-item label="性别：" prop="gender">
                   <el-select v-model="student_form.gender" placeholder="请选择性别" :disabled="is_view" >
                     <el-option label="男" value="男"></el-option>
                     <el-option label="女" value="女"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="家庭住址：" style="width:100%;">
+                <el-form-item label="家庭住址：" style="width:100%;" prop="address">
                   <el-input v-model="student_form.address" suffix-icon="el-icon-edit" :disabled="is_view" ></el-input>
                 </el-form-item>
               </el-form>

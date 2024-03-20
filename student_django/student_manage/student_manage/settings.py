@@ -24,7 +24,7 @@ SECRET_KEY = "django-insecure-17fkl&i9z@+rtnh%8a2mm_h-78mi9-ai_ff3ggmt(o560=i4tv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.77.183.160']
+ALLOWED_HOSTS = ['192.168.0.180']
 
 
 # Application definition
@@ -132,6 +132,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 #添加cors配置
 #1，设置白名单
-CORS_ORIGIN_WHITELIST=('http://10.77.183.160:5500',)
+CORS_ORIGIN_WHITELIST=('http://10.77.183.160:5500','http://192.168.0.180:5500')
 #2,设置cors cookies
 CORS_ALLOW_CREDENTIALS = True
